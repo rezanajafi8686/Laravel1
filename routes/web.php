@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 use App\Models\User;
 
 /*
@@ -17,10 +18,10 @@ use App\Models\User;
 |
 */
 
-Route::get('/', [ContactController::class,'index']);//->middleware('check');
+//Route::get('/', [ContactController::class,'index']);//->middleware('check');
 
-Route::get('/home', function () {
-    echo " This is Home Page";
+Route::get('/', function () {
+    return view('welcome');
 });
 
 //category controller
@@ -44,3 +45,16 @@ Route::middleware([
     })->name('dashboard');
 });
 
+
+//// for Brand Route
+Route::get('/brand/all',[BrandController::class,'AllBrand'])->name('all.brand');
+Route::post('/brand/add',[BrandController::class,'StoreBrand'])->name('store.brand');
+Route::get('/brand/edit/{id}',[BrandController::class,'Edit']);
+Route::post('/brand/delete',[BrandController::class,'BrandDelete']);
+Route::post('/brand/update/{id}', [BrandController::class,'Update']);
+Route::get('/brand/delete/{id}', [BrandController::class,'Delete']);
+
+
+// Mulit Image Route
+Route::get('/multi/images',[BrandController::class,'Multpic'])->name('multi.image');
+Route::post('/multi/add',[BrandController::class,'StoreImg'])->name('store.image');
