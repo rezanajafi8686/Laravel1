@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function AllCat(){
          $categories = Category::latest()->paginate(5);
          $trashCat = Category::onlyTrashed()->latest()->paginate(3);

@@ -33,17 +33,7 @@ Route::get('/category/restore/{id}', [CategoryController::class,'Restore']);
 Route::get('/category/pdelete/{id}', [CategoryController::class,'PDelete']);
 Route::post('/category/update/{id}', [CategoryController::class,'Update']);
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-      //  $users = User::all();
-      $users = DB::table('users')->get();
-        return view('dashboard',compact('users'));
-    })->name('dashboard');
-});
+
 
 
 //// for Brand Route
@@ -58,3 +48,17 @@ Route::get('/brand/delete/{id}', [BrandController::class,'Delete']);
 // Mulit Image Route
 Route::get('/multi/images',[BrandController::class,'Multpic'])->name('multi.image');
 Route::post('/multi/add',[BrandController::class,'StoreImg'])->name('store.image');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+      //  $users = User::all();
+    //   $users = DB::table('users')->get();
+        return view('admin.index');
+    })->name('dashboard');
+});
+
+Route::get('/user/logout',[BrandController::class,'Logout'])->name('user.logout');
